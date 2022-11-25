@@ -1,0 +1,27 @@
+{
+  "name": "propertyme-airtable",
+  "version": "1.0.0",
+  "description": "Airtable integration on Propertyme",
+  "main": "index.js",
+  "scripts": {
+  	"start": "node index.js",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilijazivkovic94/propertyme-airtable.git"
+  },
+  "keywords": [
+    "Airtable",
+    "Propertyme",
+    "Integration",
+    "AWS",
+    "Script"
+  ],
+  "author": "Ilija Zivkovic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilijazivkovic94/propertyme-airtable/issues"
+  },
+  "homepage": "https://github.com/ilijazivkovic94/propertyme-airtable#readme"
+}
