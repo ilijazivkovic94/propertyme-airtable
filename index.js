@@ -129,7 +129,142 @@ const Airtable = require('airtable');
 //     {id: 'ExcludeArrearsAutomation', title: 'ExcludeArrearsAutomation'},
 //   ]
 // });
-
+// const jobsCsvWriter = createCsvWriter({
+//   path: 'jobs.csv',
+//   header: [
+//     {id: 'Id', title: 'Id'},
+//     {id: 'LotReference', title: 'LotReference'},
+//     {id: 'TenantReference', title: 'TenantReference'},
+//     {id: 'OwnerReference', title: 'OwnerReference'},
+//     {id: 'ContactReference', title: 'ContactReference'},
+//     {id: 'ManagerName', title: 'ManagerName'},
+//     {id: 'IsLetterStatement', title: 'IsLetterStatement'},
+//     {id: 'StatementId', title: 'StatementId'},
+//     {id: 'TaskType', title: 'TaskType'},
+//     {id: 'Timestamp', title: 'Timestamp'},
+//     {id: 'OwnerAttending', title: 'OwnerAttending'},
+//     {id: 'TenantAttending', title: 'TenantAttending'},
+//     {id: 'SupplierReference', title: 'SupplierReference'},
+//     {id: 'DisplayNumber', title: 'DisplayNumber'},
+//     {id: 'Number', title: 'Number'},
+//     {id: 'Status', title: 'Status'},
+//     {id: 'ReportedContactType', title: 'ReportedContactType'},
+//     {id: 'Access', title: 'Access'},
+//     {id: 'MainPhotoDocumentId', title: 'MainPhotoDocumentId'},
+//     {id: 'DocumentLinkTextName', title: 'DocumentLinkTextName'},
+//     {id: 'QuoteId', title: 'QuoteId'},
+//     {id: 'SupplierInstructions', title: 'SupplierInstructions'},
+//     {id: 'CustomerId', title: 'CustomerId'},
+//     {id: 'DueDate', title: 'DueDate'},
+//     {id: 'CreatedOn', title: 'CreatedOn'},
+//     {id: 'ClosedOn', title: 'ClosedOn'},
+//     {id: 'Summary', title: 'Summary'},
+//     {id: 'Description', title: 'Description'},
+//     {id: 'LotId', title: 'LotId'},
+//     {id: 'TenantContactId', title: 'TenantContactId'},
+//     {id: 'OwnerContactId', title: 'OwnerContactId'},
+//     {id: 'ContactId', title: 'ContactId'},
+//     {id: 'ManagerMemberId', title: 'ManagerMemberId'},
+//     {id: 'Labels', title: 'Labels'},
+//     {id: 'UpdatedOn', title: 'UpdatedOn'},
+//   ]
+// });
+// const inspectionsCsvWriter = createCsvWriter({
+//   path: 'inspections.csv',
+//   header: [
+//     {id: 'Id', title: 'Id'},
+//     {id: 'CustomerId', title: 'CustomerId'},
+//     {id: 'LotReference', title: 'LotReference'},
+//     {id: 'AddressText', title: 'AddressText'},
+//     {id: 'KeyNumber', title: 'KeyNumber'},
+//     {id: 'Longitude', title: 'Longitude'},
+//     {id: 'Latitude', title: 'Latitude'},
+//     {id: 'TenantReference', title: 'TenantReference'},
+//     {id: 'OwnerReference', title: 'OwnerReference'},
+//     {id: 'PublishOn', title: 'PublishOn'},
+//     {id: 'LotMainPhotoDocumentId', title: 'LotMainPhotoDocumentId'},
+//     {id: 'ManagerName', title: 'ManagerName'},
+//     {id: 'Timestamp', title: 'Timestamp'},
+//     {id: 'CurrentRentAmount', title: 'CurrentRentAmount'},
+//     {id: 'CurrentRentPeriod', title: 'CurrentRentPeriod'},
+//     {id: 'StatusText', title: 'StatusText'},
+//     {id: 'StartTimeText', title: 'StartTimeText'},
+//     {id: 'IsPublished', title: 'IsPublished'},
+//     {id: 'StartTime', title: 'StartTime'},
+//     {id: 'Duration', title: 'Duration'},
+//     {id: 'Type', title: 'Type'},
+//     {id: 'Status', title: 'Status'},
+//     {id: 'ListingId', title: 'ListingId'},
+//     {id: 'DueDate', title: 'DueDate'},
+//     {id: 'CreatedOn', title: 'CreatedOn'},
+//     {id: 'ClosedOn', title: 'ClosedOn'},
+//     {id: 'Summary', title: 'Summary'},
+//     {id: 'Description', title: 'Description'},
+//     {id: 'LotId', title: 'LotId'},
+//     {id: 'TenantContactId', title: 'TenantContactId'},
+//     {id: 'OwnerContactId', title: 'OwnerContactId'},
+//     {id: 'ContactId', title: 'ContactId'},
+//     {id: 'ManagerMemberId', title: 'ManagerMemberId'},
+//     {id: 'Labels', title: 'Labels'},
+//     {id: 'UpdatedOn', title: 'UpdatedOn'},
+//     // {id: 'InspectionReport', title: 'InspectionReport'},
+//     // {id: 'PreviousExitReport', title: 'PreviousExitReport'},
+//   ]
+// });
+// const tasksCsvWriter = createCsvWriter({
+//   path: 'tasks.csv',
+//   header: [
+//     {id: 'Id', title: 'Id'},
+//     {id: 'LotReference', title: 'LotReference'},
+//     {id: 'TenantReference', title: 'TenantReference'},
+//     {id: 'OwnerReference', title: 'OwnerReference'},
+//     {id: 'ContactReference', title: 'ContactReference'},
+//     {id: 'ManagerName', title: 'ManagerName'},
+//     {id: 'TaskType', title: 'TaskType'},
+//     {id: 'Timestamp', title: 'Timestamp'},
+//     {id: 'CustomerId', title: 'CustomerId'},
+//     {id: 'DueDate', title: 'DueDate'},
+//     {id: 'CreatedOn', title: 'CreatedOn'},
+//     {id: 'ClosedOn', title: 'ClosedOn'},
+//     {id: 'Summary', title: 'Summary'},
+//     {id: 'Description', title: 'Description'},
+//     {id: 'LotId', title: 'LotId'},
+//     {id: 'TenantContactId', title: 'TenantContactId'},
+//     {id: 'OwnerContactId', title: 'OwnerContactId'},
+//     {id: 'ContactId', title: 'ContactId'},
+//     {id: 'ManagerMemberId', title: 'ManagerMemberId'},
+//     {id: 'Labels', title: 'Labels'},
+//     {id: 'UpdatedOn', title: 'UpdatedOn'},
+//   ]
+// });
+// const membersCsvWriter = createCsvWriter({
+//   path: 'members.csv',
+//   header: [
+//     {id: 'Id', title: 'Id'},
+//     {id: 'CustomerId', title: 'CustomerId'},
+//     {id: 'UserId', title: 'UserId'},
+//     {id: 'Role', title: 'Role'},
+//     {id: 'ExpireOn', title: 'ExpireOn'},
+//     {id: 'FirstName', title: 'FirstName'},
+//     {id: 'LastName', title: 'LastName'},
+//     {id: 'Name', title: 'Name'},
+//     {id: 'CompanyName', title: 'CompanyName'},
+//     {id: 'RegisteredEmail', title: 'RegisteredEmail'},
+//     {id: 'RegisteredOn', title: 'RegisteredOn'},
+//     {id: 'WorkPhone', title: 'WorkPhone'},
+//     {id: 'MobilePhone', title: 'MobilePhone'},
+//     {id: 'IsActivated', title: 'IsActivated'},
+//     {id: 'AgreeConditionsOn', title: 'AgreeConditionsOn'},
+//     {id: 'RegionCode', title: 'RegionCode'},
+//     {id: 'Permissions', title: 'Permissions'},
+//     {id: 'CurrentMemberAccessId', title: 'CurrentMemberAccessId'},
+//     {id: 'JobTitle', title: 'JobTitle'},
+//     {id: 'Teams', title: 'Teams'},
+//     {id: 'IsSupport', title: 'IsSupport'},
+//     {id: 'IsBillingRecipient', title: 'IsBillingRecipient'},
+//     {id: 'IsTwoFactorAuthenticationEnabled', title: 'IsTwoFactorAuthenticationEnabled'},
+//   ]
+// });
 let defaultAccessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2NjkzNDMwNTksImV4cCI6MTY2OTM0NjY1OSwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5wcm9wZXJ0eW1lLmNvbSIsImF1ZCI6WyJodHRwczovL2xvZ2luLnByb3BlcnR5bWUuY29tL3Jlc291cmNlcyIsImh0dHBzOi8vYXBwLnByb3BlcnR5bWUuY29tL2FwaSJdLCJjbGllbnRfaWQiOiI3ZjQ0MjYwZS1jMmFjLTQzMzMtYTFiNC01NzQxMjkxNmEyZDUiLCJzdWIiOiJDdXN0b21lcklkX2FhOWQwMTY1LWQwZDMtNGNjNy1iZjFkLTFiMTU5ZmJiMDAyMyIsImF1dGhfdGltZSI6MTY2NzgzMjI0NywiaWRwIjoibG9jYWwiLCJjdXN0b21lcl9pZCI6ImFhOWQwMTY1LWQwZDMtNGNjNy1iZjFkLTFiMTU5ZmJiMDAyMyIsIm1lbWJlcl9pZCI6ImFkOTAwMDk2LTgxMjUtNGRhYi05YTlmLTYxNzliYWU1YzU2ZSIsIm1lbWJlcl9hY2Nlc3NfaWQiOiJhZDkwMDA5Ni04MTI3LTRiZGUtODNkNi1kMzgwMzQ1ZjBjMjEiLCJzY29wZSI6WyJwcm9wZXJ0eTpyZWFkIiwiY29tbXVuaWNhdGlvbjpyZWFkIiwiYWN0aXZpdHk6cmVhZCIsInRyYW5zYWN0aW9uOnJlYWQiLCJjb250YWN0OnJlYWQiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsicHdkIl19.ErLgD-v_UQJiAO2XpFp-V3J62m0ltNC6czE126dUfLanbewV7sRM-yzRzvFNlho2816J5MWSi0yXfJs28geM-McDnbg7F1FdVkI2OEBZbT7V8fxA9Kpgzhk3Vy_6He1XnB89HeUOu7nB7OZb18RJw15jeBkOsm88dZl0odcFv6iqwcoO1osOZjEDT2UeRubhgHe0jdnf4_No802SdKKrGJmHhW4qYZDc-Up0pWGlxlsbv6W2Z_f5cTzqUKutu3XGi3uipoCA0IlLPVCcn1lPalHDLr29cr68qzzcXWpJhVGb1l5kD8Tdq5RXKdM4HYV9kfOxfuqcLsFr2FsZDz_vpQ";
 const defaultRefreshToken = "0ddfcb7fc7731c0bc518ffce369335e2e0f90f517c8d43a92947752fd50d3772";
 
@@ -229,6 +364,10 @@ const base = table.base(airtableBaseId);
 const propertiesTable = base.table('Properties');
 const tenantsTable = base.table('Tenancies');
 const contactsTable = base.table('Contacts');
+const jobsTable = base.table('Jobs');
+const tasksTable = base.table('Tasks');
+const inspectionsTable = base.table('Inspections');
+const membersTable = base.table('Members');
 
 const getContacts = async () => {
   console.log('Removing Contacts Data...');
@@ -360,10 +499,97 @@ const getProperties = async () => {
   console.log('All done!');
   return properties_data;
 }
+
+const getJobs = async () => {
+  let data = [];
+  data = await instance.get('/jobtasks?Timestamp=' + new Date().getTime() + '&format=json');
+  // jobsCsvWriter
+  //   .writeRecords(data)
+  //   .then(()=> console.log('The Jobs CSV file was written successfully'));
+  
+  let postData = [];
+  console.log('Inserting Jobs...');
+  const jobsSplitedData = splitDataToSmall(data);
+  for (let i = 0; i < jobsSplitedData.length; i++) {
+    postData = jobsSplitedData[i];
+    await createRow(postData, jobsTable);
+  }
+  console.log('Jobs Done!');
+  return data;
+}
+const getTasks = async () => {
+  let data = [];
+  data = await instance.get('/tasks?Timestamp=' + new Date().getTime() + '&format=json');
+  // tasksCsvWriter
+  //   .writeRecords(data)
+  //   .then(()=> console.log('The Tasks CSV file was written successfully'));
+  let postData = [];
+  console.log('Inserting Tasks...');
+  const tasksSplitedData = splitDataToSmall(data);
+  for (let i = 0; i < tasksSplitedData.length; i++) {
+    postData = tasksSplitedData[i];
+    await createRow(postData, tasksTable);
+  }
+  console.log('Tasks Done!');
+  return data;
+}
+const getInspections = async () => {
+  let data = [];
+  data = await instance.get('/inspections?Timestamp=' + new Date().getTime() + '&format=json');
+  data = data.map((item) => {
+    delete item.InspectionReport;
+    delete item.PreviousExitReport;
+    return item;
+  })
+  // inspectionsCsvWriter
+  //   .writeRecords(data)
+  //   .then(()=> console.log('The Inspections CSV file was written successfully'));
+  let postData = [];
+  console.log('Inserting Inspections...');
+  const inspectionsSplitedData = splitDataToSmall(data);
+  for (let i = 0; i < inspectionsSplitedData.length; i++) {
+    postData = inspectionsSplitedData[i];
+    await createRow(postData, inspectionsTable);
+  }
+  console.log('Inspections Done!');
+  return data;
+}
+const getMembers = async () => {
+  let data = [];
+  data = await instance.get('/members');
+  // membersCsvWriter
+  //   .writeRecords(data)
+  //   .then(()=> console.log('The Members CSV file was written successfully'));
+  let postData = [];
+  console.log('Inserting Members...');
+  const membersSplitedData = splitDataToSmall(data);
+  for (let i = 0; i < membersSplitedData.length; i++) {
+    postData = membersSplitedData[i];
+    await createRow(postData, membersTable);
+  }
+  console.log('Members Done!');
+  return data;
+}
 // Create&Update Properties
 const startUpdate = async () => {
+  console.log("Starting Contacts...");
   await getContacts();
+  console.log("End Contacts...");
+  console.log("Starting Properties...");
   await getProperties();
+  console.log("End Properties...");
+  console.log("Starting Members...");
+  await getMembers();
+  console.log("End Members...");
+  console.log("Starting Inspections...");
+  await getInspections();
+  console.log("End Inspections...");
+  console.log("Starting Tasks...");
+  await getTasks();
+  console.log("End Tasks...");
+  console.log("Starting Jobs...");
+  await getJobs();
+  console.log("End Jobs...");
 }
 
 startUpdate();
