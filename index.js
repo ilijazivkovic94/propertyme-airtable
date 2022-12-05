@@ -507,7 +507,9 @@ const getJobs = async () => {
   //   .writeRecords(data)
   //   .then(()=> console.log('The Jobs CSV file was written successfully'));
   
+  data = data.map(item => ({ fields: item }));
   let postData = [];
+  await removeAllData(jobsTable);
   console.log('Inserting Jobs...');
   const jobsSplitedData = splitDataToSmall(data);
   for (let i = 0; i < jobsSplitedData.length; i++) {
@@ -523,6 +525,8 @@ const getTasks = async () => {
   // tasksCsvWriter
   //   .writeRecords(data)
   //   .then(()=> console.log('The Tasks CSV file was written successfully'));
+  await removeAllData(tasksTable);
+  data = data.map(item => ({ fields: item }));
   let postData = [];
   console.log('Inserting Tasks...');
   const tasksSplitedData = splitDataToSmall(data);
@@ -539,11 +543,12 @@ const getInspections = async () => {
   data = data.map((item) => {
     delete item.InspectionReport;
     delete item.PreviousExitReport;
-    return item;
+    return { fields: item };
   })
   // inspectionsCsvWriter
   //   .writeRecords(data)
   //   .then(()=> console.log('The Inspections CSV file was written successfully'));
+  await removeAllData(inspectionsTable);
   let postData = [];
   console.log('Inserting Inspections...');
   const inspectionsSplitedData = splitDataToSmall(data);
@@ -556,10 +561,13 @@ const getInspections = async () => {
 }
 const getMembers = async () => {
   let data = [];
-  data = await instance.get('/members');
+  data = await instance.get('/members?format=json');
   // membersCsvWriter
   //   .writeRecords(data)
   //   .then(()=> console.log('The Members CSV file was written successfully'));
+  
+  await removeAllData(membersTable);
+  data = data.map(item => ({ fields: item }));
   let postData = [];
   console.log('Inserting Members...');
   const membersSplitedData = splitDataToSmall(data);
