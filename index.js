@@ -332,7 +332,7 @@ instance.interceptors.response.use(response => response.data, error => {
 });
 
 const splitDataToSmall = (bigarray) => {
-  var size = 10; var arrayOfArrays = [];
+  var size = 5; var arrayOfArrays = [];
   for (var i = 0; i < bigarray.length; i += size) {
       arrayOfArrays.push(bigarray.slice(i, i + size));
   }
