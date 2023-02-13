@@ -282,7 +282,7 @@ const instance = axios.create({
     'Access-Control-Allow-Origin': "*",
     'Content-Type': 'application/json',
   },
-  responseType: 'arraybuffer',
+  responseType: 'json',
   maxContentLength: 10000000000,
   maxBodyLength: 10000000000,
   timeout: 300000,
@@ -450,6 +450,9 @@ const getProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
+    Object.keys(item).map((objKey) => {
+      item[objKey] = item[objKey] ?? ''
+    });
     return { fields: item };
   });
   let postData = [];
@@ -537,6 +540,9 @@ const getArchivedProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
+    Object.keys(item).map((objKey) => {
+      item[objKey] = item[objKey] ?? ''
+    });
     return { fields: item };
   });
   let postData = [];
