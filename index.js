@@ -450,9 +450,6 @@ const getProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
-    Object.keys(item).map((objKey) => {
-      item[objKey] = item[objKey] ?? ''
-    });
     return { fields: item };
   });
   let postData = [];
@@ -541,9 +538,6 @@ const getArchivedProperties = async () => {
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
     delete item.ActiveManagerTeams;
-    Object.keys(item).map((objKey) => {
-      item[objKey] = item[objKey] ?? ''
-    });
     return { fields: item };
   });
   let postData = [];
