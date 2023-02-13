@@ -538,6 +538,7 @@ const getArchivedProperties = async () => {
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
     delete item.ActiveManagerTeams;
+    delete item.OwnerFolioCode;
     return { fields: item };
   });
   let postData = [];
