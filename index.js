@@ -679,24 +679,24 @@ const getMembers = async () => {
 }
 // Create&Update Properties
 const startUpdate = async () => {
-  // console.log("Starting Contacts...");
-  // await getContacts();
-  // console.log("End Contacts...");
-  // console.log("Starting Properties...");
-  // await getProperties();
-  // console.log("End Properties...");
-  // console.log("Starting Members...");
-  // await getMembers();
-  // console.log("End Members...");
-  // console.log("Starting Inspections...");
-  // await getInspections();
-  // console.log("End Inspections...");
-  // console.log("Starting Tasks...");
-  // await getTasks();
-  // console.log("End Tasks...");
-  // console.log("Starting Jobs...");
-  // await getJobs();
-  // console.log("End Jobs...");
+  console.log("Starting Contacts...");
+  await getContacts();
+  console.log("End Contacts...");
+  console.log("Starting Properties...");
+  await getProperties();
+  console.log("End Properties...");
+  console.log("Starting Members...");
+  await getMembers();
+  console.log("End Members...");
+  console.log("Starting Inspections...");
+  await getInspections();
+  console.log("End Inspections...");
+  console.log("Starting Tasks...");
+  await getTasks();
+  console.log("End Tasks...");
+  console.log("Starting Jobs...");
+  await getJobs();
+  console.log("End Jobs...");
   console.log("Starting Archived Properties...");
   await getArchivedProperties();
   console.log("End Archived Properties...");
