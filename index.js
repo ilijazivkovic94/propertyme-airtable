@@ -550,7 +550,6 @@ const getArchivedProperties = async () => {
   const propertiesSplitedData = splitDataToSmall(properties_data);
   for (let i = 0; i < propertiesSplitedData.length; i++) {
     postData = propertiesSplitedData[i];
-    console.log(postData);
     await createRow(postData, archivedPropertiesTable);
   }
   console.log('Archived Properties Done!');
