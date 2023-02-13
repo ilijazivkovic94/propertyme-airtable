@@ -515,7 +515,7 @@ const getArchivedProperties = async () => {
   await removeAllData(archivedPropertiesTable);
   console.log('Removed all Archived Properties!');
   console.log('Getting all Archived Properties...');
-  let properties_data = await instance.get('/lots/archived?Offset=0&Limit=100');
+  let properties_data = await instance.get('/lots/archived?Offset=0&Limit=');
   properties_data = properties_data.map(item => {
     delete item.TenancyStart;
     delete item.TenancyEnd;
@@ -540,6 +540,7 @@ const getArchivedProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
+    delete item.ActiveManagerTeams;
     Object.keys(item).map((objKey) => {
       item[objKey] = item[objKey] ?? ''
     });
