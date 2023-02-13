@@ -277,9 +277,10 @@ const accessTokenValue = defaultAccessToken;
 const instance = axios.create({
   baseURL: `https://app.propertyme.com/api/v1`,
   headers: {
-    Accept: "application/octet-stream, text/plain, application/json, */*",
+    Accept: "application/json",
     Authorization: "Bearer " + accessTokenValue,
     'Access-Control-Allow-Origin': "*",
+    'Content-Type': 'application/json',
   },
   responseType: 'arraybuffer',
   maxContentLength: 10000000000,
@@ -511,7 +512,7 @@ const getArchivedProperties = async () => {
   await removeAllData(archivedPropertiesTable);
   console.log('Removed all Archived Properties!');
   console.log('Getting all Archived Properties...');
-  let properties_data = await instance.get('/lots/archived?Offset=0&Limit=100&format=json');
+  let properties_data = await instance.get('/lots/archived?Offset=0&Limit=100');
   properties_data = properties_data.map(item => {
     delete item.TenancyStart;
     delete item.TenancyEnd;
@@ -543,6 +544,7 @@ const getArchivedProperties = async () => {
   const propertiesSplitedData = splitDataToSmall(properties_data);
   for (let i = 0; i < propertiesSplitedData.length; i++) {
     postData = propertiesSplitedData[i];
+    console.log(postData);
     await createRow(postData, archivedPropertiesTable);
   }
   console.log('Archived Properties Done!');
