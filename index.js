@@ -386,9 +386,7 @@ const table = new Airtable({ apiKey: airtableAPIKey });
 const base = table.base(airtableBaseId);
 
 const propertiesTable = base.table('Properties');
-const archivedPropertiesTable = base.table('ArchivedProperties');
 const tenantsTable = base.table('Tenancies');
-const archivedTenantsTable = base.table('ArchivedTenancies');
 const contactsTable = base.table('Contacts');
 const jobsTable = base.table('Jobs');
 const tasksTable = base.table('Tasks');
@@ -470,17 +468,16 @@ const getProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
-    item.isArchived = 'NO';
+    item.isArchived = false;
     return { fields: item };
   });
   let postData = [];
-  console.log('Inserting Properties...');
+  console.log('Processing Properties...');
   // const propertiesSplitedData = splitDataToSmall(properties_data);
   for (let i = 0; i < properties_data.length; i++) {
     postData = properties_data[i];
     console.log(postData);
     const row = await selectRow(propertiesTable, postData.fields.Id);
-    console.log(row);
     if (!row) {
       await createRow([postData], propertiesTable);
     } else {
@@ -494,49 +491,49 @@ const getProperties = async () => {
 
   console.log('Total Properties: ', properties_data.length);
   // await removeAllData(tenantsTable);
-  // for (let i = 0; i < properties_data.length; i++) {
-  //   console.log('Getting Tenancies from ' + i + ' Property');
-  //   let tempTenancies = await getTenancies(properties_data[i].fields.TenantContactId, properties_data[i].fields.Id);
-  //   tempTenancies = tempTenancies.map(item => {
-  //     delete item.ContactWorkPhone;
-  //     delete item.ContactHomePhone;
-  //     delete item.Periodic;
-  //     delete item.TenancyEnd;
-  //     delete item.Termination;
-  //     delete item.BreakLease;
-  //     delete item.Notes;
-  //     delete item.BondReference;
-  //     delete item.BondInTrust;
-  //     delete item.NextIncreaseAmount;
-  //     delete item.NextIncreaseDate;
-  //     delete item.RentSequence;
-  //     return { fields: item };
-  //   });
-  //   console.log('Tenancies: ' + tempTenancies.length);
-  //   if (tempTenancies && tempTenancies.length > 0) {
-  //     for (let j = 0; j < tempTenancies.length; j++) {
-  //       const tenantRow = await selectRow(tenantsTable, tempTenancies[j].Id);
-  //       if (tenantRow) {
-  //         await updateRow([tempTenancies[j]], tenantsTable);
-  //       } else {
-  //         await createRow([tempTenancies[j]], tenantsTable);
-  //       }
-  //     }
-  //   }
-  //   console.log('Inserted: ' + i + ' Property Data');
-  //   // tenanciesCsvWriter
-  //   //   .writeRecords(tenancies)
-  //   //   .then(()=> console.log('The Tenancies CSV file was written successfully'));
-  // }
+  for (let i = 0; i < properties_data.length; i++) {
+    console.log('Getting Tenancies from ' + i + ' Property');
+    let tempTenancies = await getTenancies(properties_data[i].fields.TenantContactId, properties_data[i].fields.Id);
+    tempTenancies = tempTenancies.map(item => {
+      delete item.ContactWorkPhone;
+      delete item.ContactHomePhone;
+      delete item.Periodic;
+      delete item.TenancyEnd;
+      delete item.Termination;
+      delete item.BreakLease;
+      delete item.Notes;
+      delete item.BondReference;
+      delete item.BondInTrust;
+      delete item.NextIncreaseAmount;
+      delete item.NextIncreaseDate;
+      delete item.RentSequence;
+      return { fields: item };
+    });
+    console.log('Tenancies: ' + tempTenancies.length);
+    if (tempTenancies && tempTenancies.length > 0) {
+      for (let j = 0; j < tempTenancies.length; j++) {
+        const tenantRow = await selectRow(tenantsTable, tempTenancies[j].fields.Id);
+        if (tenantRow) {
+          await updateRow([tempTenancies[j]], tenantsTable, tenantRow.id);
+        } else {
+          await createRow([tempTenancies[j]], tenantsTable);
+        }
+      }
+    }
+    console.log('Updated: ' + i + ' Property Data');
+    // tenanciesCsvWriter
+    //   .writeRecords(tenancies)
+    //   .then(()=> console.log('The Tenancies CSV file was written successfully'));
+  }
 
   console.log('All done!');
   return properties_data;
 }
 
 const getArchivedProperties = async () => {
-  console.log('Removing Properties Data...');
-  await removeAllData(archivedPropertiesTable);
-  console.log('Removed all Archived Properties!');
+  // console.log('Removing Properties Data...');
+  // await removeAllData(propertiesTable);
+  // console.log('Removed all Properties!');
   console.log('Getting all Archived Properties...');
   let properties_data = await instance.get('/lots/archived?Offset=0&Limit=100');
   properties_data = properties_data.map(item => {
@@ -563,20 +560,20 @@ const getArchivedProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
-    delete item.ActiveManagerTeams;
-    delete item.OwnerFolioCode;
-    delete item.TenantFolioCode;
-    delete item.SellerFolioCode;
-    delete item.SearchText;
-    item.isArchived = 'YES';
+    item.isArchived = true;
     return { fields: item };
   });
   let postData = [];
-  console.log('Inserting Archived Properties...');
-  const propertiesSplitedData = splitDataToSmall(properties_data);
-  for (let i = 0; i < propertiesSplitedData.length; i++) {
-    postData = propertiesSplitedData[i];
-    await createRow(postData, archivedPropertiesTable);
+  console.log('Processing Archived Properties...');
+  // const propertiesSplitedData = splitDataToSmall(properties_data);
+  for (let i = 0; i < properties_data.length; i++) {
+    postData = properties_data[i];
+    const row = await selectRow(propertiesTable, postData.fields.Id);
+    if (!row) {
+      await createRow([postData], propertiesTable);
+    } else {
+      await updateRow([postData], propertiesTable, row.id);
+    }
   }
   console.log('Archived Properties Done!');
   // propertiesCsvWriter
@@ -584,9 +581,9 @@ const getArchivedProperties = async () => {
   //   .then(()=> console.log('The Properties CSV file was written successfully'));
 
   console.log('Total Archived Properties: ', properties_data.length);
-  await removeAllData(archivedTenantsTable);
+  // await removeAllData(tenantsTable);
   for (let i = 0; i < properties_data.length; i++) {
-    console.log('Getting Archived Tenancies from ' + i + ' Archived Property');
+    console.log('Getting Archived Tenancies from ' + i + ' Property');
     let tempTenancies = await getTenancies(properties_data[i].fields.TenantContactId, properties_data[i].fields.Id);
     tempTenancies = tempTenancies.map(item => {
       delete item.ContactWorkPhone;
@@ -605,18 +602,16 @@ const getArchivedProperties = async () => {
     });
     console.log('Archived Tenancies: ' + tempTenancies.length);
     if (tempTenancies && tempTenancies.length > 0) {
-      if (tempTenancies.length <= 10) {
-        await createRow(tempTenancies, archivedTenantsTable);
-      } else {
-        postData = [];
-        const tenantsSplitedData = splitDataToSmall(tempTenancies);
-        for (let i = 0; i < tenantsSplitedData.length; i++) {
-          postData = tenantsSplitedData[i];
-          await createRow(postData, archivedTenantsTable);
+      for (let j = 0; j < tempTenancies.length; j++) {
+        const tenantRow = await selectRow(tenantsTable, tempTenancies[j].fields.Id);
+        if (tenantRow) {
+          await updateRow([tempTenancies[j]], tenantsTable, tenantRow.id);
+        } else {
+          await createRow([tempTenancies[j]], tenantsTable);
         }
       }
     }
-    console.log('Inserted: ' + i + ' Archived Property Data');
+    console.log('Updated: ' + i + ' Archived Property Data');
     // tenanciesCsvWriter
     //   .writeRecords(tenancies)
     //   .then(()=> console.log('The Tenancies CSV file was written successfully'));
@@ -706,27 +701,30 @@ const getMembers = async () => {
 }
 // Create&Update Properties
 const startUpdate = async () => {
-  // console.log("Starting Contacts...");
-  // await getContacts();
-  // console.log("End Contacts...");
+  console.log("Starting Contacts...");
+  await getContacts();
+  console.log("End Contacts...");
   console.log("Starting Properties...");
   await getProperties();
   console.log("End Properties...");
-  // console.log("Starting Archived Properties...");
-  // await getArchivedProperties();
-  // console.log("End Archived Properties...");
-  // console.log("Starting Members...");
-  // await getMembers();
-  // console.log("End Members...");
-  // console.log("Starting Inspections...");
-  // await getInspections();
-  // console.log("End Inspections...");
-  // console.log("Starting Tasks...");
-  // await getTasks();
-  // console.log("End Tasks...");
-  // console.log("Starting Jobs...");
-  // await getJobs();
-  // console.log("End Jobs...");
+  console.log("Starting Archived Properties...");
+  await getArchivedProperties();
+  console.log("End Archived Properties...");
+  console.log("Starting Members...");
+  await getMembers();
+  console.log("End Members...");
+  console.log("Starting Inspections...");
+  await getInspections();
+  console.log("End Inspections...");
+  console.log("Starting Tasks...");
+  await getTasks();
+  console.log("End Tasks...");
+  console.log("Starting Jobs...");
+  await getJobs();
+  console.log("End Jobs...");
+
+  console.log("----------------------------------------");
+  console.log("All process completed!");
 }
 
 startUpdate();
