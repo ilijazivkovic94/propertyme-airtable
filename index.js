@@ -368,7 +368,7 @@ const updateRow = async (postData, mainTable, id) => {
 }
 
 const selectRow = async (mainTable, id) => {
-  const row = await mainTable.select({filterByFormula: `Id="${id}"`, maxRecords: 1}).firstPage();
+  const row = await mainTable.select({filterByFormula: `Id="${id}"`, maxRecords: 1}).firstPage().then(data => data).catch(err => console.log(err));
   return row;
 }
 
@@ -469,7 +469,7 @@ const getProperties = async () => {
   for (let i = 0; i < properties_data.length; i++) {
     postData = properties_data[i];
     const row = await selectRow(propertiesTable, postData.Id);
-    console.log(row.Id);
+    console.log(row);
     if (!row) {
       await createRow([postData], propertiesTable);
     } else {
