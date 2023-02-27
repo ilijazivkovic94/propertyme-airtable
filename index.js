@@ -475,7 +475,7 @@ const getProperties = async () => {
   for (let i = 0; i < properties_data.length; i++) {
     postData = properties_data[i];
     console.log(postData);
-    const row = await selectRow(propertiesTable, postData.Id);
+    const row = await selectRow(propertiesTable, postData.fields.Id);
     console.log(row);
     if (!row.length) {
       await createRow([postData], propertiesTable);
