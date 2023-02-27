@@ -369,7 +369,6 @@ const updateRow = async (postData, mainTable, id) => {
 
 const selectRow = async (mainTable, id) => {
   return new Promise((resolve, reject) => {
-    console.log(id);
     mainTable.select({ filterByFormula: `Id="${id}"` }).firstPage((err, records) => {
       if (err) {
         reject(err);
@@ -475,6 +474,7 @@ const getProperties = async () => {
   // const propertiesSplitedData = splitDataToSmall(properties_data);
   for (let i = 0; i < properties_data.length; i++) {
     postData = properties_data[i];
+    console.log(postData);
     const row = await selectRow(propertiesTable, postData.Id);
     console.log(row);
     if (!row.length) {
