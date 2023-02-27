@@ -468,7 +468,7 @@ const getProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
-    item.isArchived = false;
+    item.IsArchived = false;
     return { fields: item };
   });
   let postData = [];
@@ -559,7 +559,7 @@ const getArchivedProperties = async () => {
     delete item.ActiveRentalListingId;
     delete item.ActiveSaleListingId;
     delete item.ArchivedOn;
-    item.isArchived = true;
+    item.IsArchived = true;
     return { fields: item };
   });
   let postData = [];
