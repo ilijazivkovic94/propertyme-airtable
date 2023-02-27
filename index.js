@@ -373,7 +373,11 @@ const selectRow = async (mainTable, id) => {
       if (err) {
         reject(err);
       }
-      resolve(records);
+      if (records && records.length > 0) {
+        resolve(records[0]);
+      } else {
+        resolve(null);
+      }
     });
   });
 }
@@ -477,10 +481,10 @@ const getProperties = async () => {
     console.log(postData);
     const row = await selectRow(propertiesTable, postData.fields.Id);
     console.log(row);
-    if (!row.length) {
+    if (!row) {
       await createRow([postData], propertiesTable);
     } else {
-      await updateRow([postData], propertiesTable, row.Id);
+      await updateRow([postData], propertiesTable, row.fields.Id);
     }
   }
   console.log('Properties Done!');
