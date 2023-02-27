@@ -317,28 +317,28 @@ const refreshToken = () => {
 };
 
 instance.interceptors.response.use(response => response.data, error => {
-	const status = error.response ? error.response.status : null
+  const status = error.response ? error.response.status : null
 
-    if (status === 401 && !error.config._retry) {
-    	return refreshToken().then(data => {
-    		defaultAccessToken = data.access_token;
-	        return instance({
-	          ...error.config,
-	          headers: {
-	              Accept: "application/json",
-	              'Access-Control-Allow-Origin': "*",
-	              Authorization: 'Bearer ' + defaultAccessToken
-	          },
-	        });
-    	});
-    }
-    return Promise.reject(error);
+  if (status === 401 && !error.config._retry) {
+    return refreshToken().then(data => {
+      defaultAccessToken = data.access_token;
+      return instance({
+        ...error.config,
+        headers: {
+          Accept: "application/json",
+          'Access-Control-Allow-Origin': "*",
+          Authorization: 'Bearer ' + defaultAccessToken
+        },
+      });
+    });
+  }
+  return Promise.reject(error);
 });
 
 const splitDataToSmall = (bigarray) => {
   var size = 2; var arrayOfArrays = [];
   for (var i = 0; i < bigarray.length; i += size) {
-      arrayOfArrays.push(bigarray.slice(i, i + size));
+    arrayOfArrays.push(bigarray.slice(i, i + size));
   }
   return arrayOfArrays;
 }
@@ -368,8 +368,14 @@ const updateRow = async (postData, mainTable, id) => {
 }
 
 const selectRow = async (mainTable, id) => {
-  const row = await mainTable.select({filterByFormula: `Id="${id}"`, maxRecords: 1}).firstPage().then(data => data).catch(err => console.log(err));
-  return row;
+  return new Promise((resolve, reject) => {
+    mainTable.select({ filterByFormula: `Id="${id}"` }).firstPage((err, records) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(records);
+    });
+  });
 }
 
 const table = new Airtable({ apiKey: airtableAPIKey });
@@ -407,7 +413,7 @@ const getContacts = async () => {
     delete item.Phone;
     delete item.PrimaryPerson;
     delete item.RolesString;
-    return {fields: item};
+    return { fields: item };
   });
   const splitedData = splitDataToSmall(postData);
   console.log('Creating Contacts Data...');
@@ -470,7 +476,7 @@ const getProperties = async () => {
     postData = properties_data[i];
     const row = await selectRow(propertiesTable, postData.Id);
     console.log(row);
-    if (!row) {
+    if (!row.length) {
       await createRow([postData], propertiesTable);
     } else {
       await updateRow([postData], propertiesTable, row.Id);
@@ -480,7 +486,7 @@ const getProperties = async () => {
   // propertiesCsvWriter
   //   .writeRecords(properties_data)
   //   .then(()=> console.log('The Properties CSV file was written successfully'));
-  
+
   console.log('Total Properties: ', properties_data.length);
   // await removeAllData(tenantsTable);
   // for (let i = 0; i < properties_data.length; i++) {
@@ -517,7 +523,7 @@ const getProperties = async () => {
   //   //   .writeRecords(tenancies)
   //   //   .then(()=> console.log('The Tenancies CSV file was written successfully'));
   // }
-    
+
   console.log('All done!');
   return properties_data;
 }
@@ -571,7 +577,7 @@ const getArchivedProperties = async () => {
   // propertiesCsvWriter
   //   .writeRecords(properties_data)
   //   .then(()=> console.log('The Properties CSV file was written successfully'));
-  
+
   console.log('Total Archived Properties: ', properties_data.length);
   await removeAllData(archivedTenantsTable);
   for (let i = 0; i < properties_data.length; i++) {
@@ -610,7 +616,7 @@ const getArchivedProperties = async () => {
     //   .writeRecords(tenancies)
     //   .then(()=> console.log('The Tenancies CSV file was written successfully'));
   }
-    
+
   console.log('All done!');
   return properties_data;
 }
@@ -621,7 +627,7 @@ const getJobs = async () => {
   // jobsCsvWriter
   //   .writeRecords(data)
   //   .then(()=> console.log('The Jobs CSV file was written successfully'));
-  
+
   data = data.map(item => ({ fields: item }));
   let postData = [];
   await removeAllData(jobsTable);
@@ -680,7 +686,7 @@ const getMembers = async () => {
   // membersCsvWriter
   //   .writeRecords(data)
   //   .then(()=> console.log('The Members CSV file was written successfully'));
-  
+
   await removeAllData(membersTable);
   data = data.map(item => ({ fields: item }));
   let postData = [];
