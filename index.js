@@ -472,7 +472,7 @@ const getProperties = async () => {
     if (!row) {
       await createRow([postData], propertiesTable);
     } else {
-      await updateRow([postData], propertiesTable, row.id);
+      await updateRow([postData], propertiesTable, row.Id);
     }
   }
   console.log('Properties Done!');
