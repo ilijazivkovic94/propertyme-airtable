@@ -476,12 +476,11 @@ const getProperties = async () => {
   // const propertiesSplitedData = splitDataToSmall(properties_data);
   for (let i = 0; i < properties_data.length; i++) {
     postData = properties_data[i];
-    console.log(postData);
     const row = await selectRow(propertiesTable, postData.fields.Id);
     if (!row) {
       await createRow([postData], propertiesTable);
     } else {
-      await updateRow([postData], propertiesTable, row.id);
+      await updateRow(postData, propertiesTable, row.id);
     }
   }
   console.log('Properties Done!');
@@ -514,7 +513,7 @@ const getProperties = async () => {
       for (let j = 0; j < tempTenancies.length; j++) {
         const tenantRow = await selectRow(tenantsTable, tempTenancies[j].fields.Id);
         if (tenantRow) {
-          await updateRow([tempTenancies[j]], tenantsTable, tenantRow.id);
+          await updateRow(tempTenancies[j], tenantsTable, tenantRow.id);
         } else {
           await createRow([tempTenancies[j]], tenantsTable);
         }
@@ -572,7 +571,7 @@ const getArchivedProperties = async () => {
     if (!row) {
       await createRow([postData], propertiesTable);
     } else {
-      await updateRow([postData], propertiesTable, row.id);
+      await updateRow(postData, propertiesTable, row.id);
     }
   }
   console.log('Archived Properties Done!');
@@ -605,7 +604,7 @@ const getArchivedProperties = async () => {
       for (let j = 0; j < tempTenancies.length; j++) {
         const tenantRow = await selectRow(tenantsTable, tempTenancies[j].fields.Id);
         if (tenantRow) {
-          await updateRow([tempTenancies[j]], tenantsTable, tenantRow.id);
+          await updateRow(tempTenancies[j], tenantsTable, tenantRow.id);
         } else {
           await createRow([tempTenancies[j]], tenantsTable);
         }
