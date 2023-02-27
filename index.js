@@ -369,6 +369,7 @@ const updateRow = async (postData, mainTable, id) => {
 
 const selectRow = async (mainTable, id) => {
   return new Promise((resolve, reject) => {
+    console.log(id);
     mainTable.select({ filterByFormula: `Id="${id}"` }).firstPage((err, records) => {
       if (err) {
         reject(err);
