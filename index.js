@@ -368,7 +368,7 @@ const updateRow = async (postData, mainTable, id) => {
 }
 
 const selectRow = async (mainTable, id) => {
-  const row = await mainTable.select({fields: [{'Id': id}], maxRecords: 1}).then(data => data).catch(err => console.log(err));
+  const row = await mainTable.select({filterByFormula: `Id="${id}"`, maxRecords: 1}).firstPage();
   return row;
 }
 
